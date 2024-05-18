@@ -48,9 +48,9 @@ prisoner2.start();
 ## Strategii Disponibile
 Prizonierii pot folosi urmatoarele strategii in cadrul simularii:
 
-AlwaysCooperate: Prizonierul va coopera intotdeauna.
-AlwaysDefect: Prizonierul va trada intotdeauna.
-TitForTat: Prizonierul incepe cooperand si apoi replica ultima miscare a adversarului.
-Random: Prizonierul alege aleator intre cooperare si tradare.
-Grudger: Prizonierul coopereaza pana cand adversarul tradeaza prima data, apoi va trada mereu.
-Pavlov: Prizonierul schimba strategia doar daca runda precedenta a fost pierzatoare.
+- AlwaysCooperate: Prizonierul va coopera intotdeauna.
+- AlwaysDefect: Prizonierul va trada intotdeauna.
+- TitForTat: Prizonierul incepe cooperand si apoi replica ultima miscare a adversarului.
+- Random: Prizonierul alege aleator intre cooperare si tradare.
+- Grudger: Prizonierul coopereaza pana cand adversarul tradeaza prima data, apoi va trada mereu.
+- Pavlov: Prizonierul schimba strategia doar daca runda precedenta a fost pierzatoare.
