@@ -8,11 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ArbitratorAgent extends Agent {
-    private static final long serialVersionUID = 1L; 
+    private static final long serialVersionUID = 1L;
     private Map<String, ACLMessage> decisions = new HashMap<>();
     private int maxRounds;
     private int currentRound = 0;
     private Map<String, Integer> prisonerScores = new HashMap<>();
+    private ArbitratorGUI gui;
 
     protected void setup() {
         System.out.println("Arbitrator-agent " + getAID().getName() + " is ready.");
@@ -21,14 +22,18 @@ public class ArbitratorAgent extends Agent {
         if (args != null && args.length > 0) {
             maxRounds = Integer.parseInt((String) args[0]);
         } else {
-            maxRounds = 10; 
+            maxRounds = 10;
         }
+
+        gui = new ArbitratorGUI();
+        gui.setVisible(true);
+
         addBehaviour(new HandlePrisonerDecisions());
     }
 
     private class HandlePrisonerDecisions extends Behaviour {
         private static final long serialVersionUID = 1L;
-		private boolean isDone = false;
+        private boolean isDone = false;
 
         public void action() {
             MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.PROPOSE);
@@ -37,7 +42,7 @@ public class ArbitratorAgent extends Agent {
             if (msg != null) {
                 decisions.put(msg.getSender().getLocalName(), msg);
 
-                if (decisions.size() == 2) { 
+                if (decisions.size() == 2) {
                     evaluateDecisions();
                     currentRound++;
 
@@ -72,11 +77,13 @@ public class ArbitratorAgent extends Agent {
                 result = firstDecision.getSender().getLocalName() + " is released, " + secondDecision.getSender().getLocalName() + " gets 3 years";
                 updateScore(firstDecision.getSender().getLocalName(), 0);
                 updateScore(secondDecision.getSender().getLocalName(), 3);
-            } else { 
+            } else {
                 result = "Each gets 2 years";
                 updateScore(firstDecision.getSender().getLocalName(), 2);
                 updateScore(secondDecision.getSender().getLocalName(), 2);
             }
+
+            gui.appendText("Round " + currentRound + ": " + result);
 
             sendResult(firstDecision, result);
             sendResult(secondDecision, result);
@@ -104,13 +111,18 @@ public class ArbitratorAgent extends Agent {
             }
             myAgent.send(stopMessage);
         }
-        
+
         private void sendStatistics() {
             for (String prisonerName : prisonerScores.keySet()) {
                 ACLMessage statisticsMessage = new ACLMessage(ACLMessage.INFORM);
                 statisticsMessage.setContent("Your total score: " + prisonerScores.get(prisonerName));
                 statisticsMessage.addReceiver(new AID(prisonerName, AID.ISLOCALNAME));
                 myAgent.send(statisticsMessage);
+            }
+
+            gui.appendText("Game finished. Final scores:");
+            for (String prisonerName : prisonerScores.keySet()) {
+                gui.appendText(prisonerName + ": " + prisonerScores.get(prisonerName) + " years");
             }
         }
 
@@ -120,6 +132,7 @@ public class ArbitratorAgent extends Agent {
     }
 
     protected void takeDown() {
+        gui.dispose();
         System.out.println("Arbitrator-agent " + getAID().getName() + " terminating.");
     }
 }
