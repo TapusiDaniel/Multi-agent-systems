@@ -1,6 +1,6 @@
 # Dilema Prizonierului
 
-Acest proiect simulează Dilema Prizonierului într-un sistem multi-agent, utilizând platforma JADE pentru a gestiona comportamentul agenților și include o interfață grafică pentru vizualizarea și interacțiunea cu simularea.
+Acest proiect simuleaza Dilema Prizonierului intr-un sistem multi-agent, utilizand platforma JADE pentru a gestiona comportamentul agentilor si include o interfata grafica pentru vizualizarea si interactiunea cu simularea.
 
 ## Descriere
 
@@ -10,10 +10,10 @@ Dilema Prizonierului este un scenariu clasic in teoria jocurilor care ilustreaza
 
 Proiectul include urmatoarele componente principale:
 
-- `Main.java`: Punctul de intrare al aplicatiei, care initiaza simularea.
-- `Prisoner.java`: Acest fisier defineste logica unui agent prizonier.
-- `ArbitratorAgent.java`: Agentul care arbitreaza jocul si calculeaza scorurile.
-- `ArbitratorGUI.java`: Clasa care gestionează interfața grafică, oferind vizualizări și controale pentru simulare.
+- `Main.java`: Punctul de intrare al aplicatiei, care initiaza simularea
+- `Prisoner.java`: Acest fisier defineste logica unui agent prizonier
+- `ArbitratorAgent.java`: Agentul care arbitreaza jocul si calculeaza scorurile
+- `ArbitratorGUI.java`: Clasa care gestioneaza interfata grafica, oferind vizualizari si controale pentru simulare
   
 ## Cerinte de Sistem
 
@@ -45,7 +45,7 @@ AgentController prisoner2 = mainContainer.createNewAgent("prisoner2", "Prisoner"
 prisoner1.start();
 prisoner2.start();
 
-// Inițializare și lansare GUI
+// Initializare si lansare GUI
 GUI gui = new GUI();
 gui.setVisible(true);
 ```
